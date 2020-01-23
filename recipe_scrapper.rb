@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 require 'nokogiri'
 require 'pry'
 
+# Scrapping AllRecipes
 class RecipeScrapper
-  def initialize(ingredient)
-    @ingredient = ingredient
-  end
+  def initialize; end
 
-  def top_five
+  def top_ten(ingredient)
+    @ingredient = ingredient
     recipe_results = []
     url = "https://www.allrecipes.com/search/results/?wt=#{@ingredient}&sort=re"
     html_file = open(url).read
@@ -15,7 +17,7 @@ class RecipeScrapper
     html_doc.search('.fixed-recipe-card h3 a').each do |element|
       recipe_results << { name: element.text.strip, href: element.attribute('href').value }
     end
-    @recipe_results = recipe_results.first(5)
+    @recipe_results = recipe_results.first(10)
   end
 
   def scrap_recipe(index)
@@ -24,7 +26,7 @@ class RecipeScrapper
     html_doc = Nokogiri::HTML(html_file)
     steps = get_steps(html_doc)
     prep_time = get_prep_time(html_doc)
-    [@recipe_results[index][:name], steps.join(" "), prep_time, "Unknown"]
+    [@recipe_results[index][:name], steps.join(" "), prep_time, "unknown"]
   end
 
   private

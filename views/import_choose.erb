@@ -1,0 +1,7 @@
+<h1>Click on the recipe would you like to import</h1>
+<br><br>
+<% @top_ten.each_with_index do |recipe, index|%>
+  <ul>
+    <li><a href="/import/<%= index + 1 %>"><%= recipe[:name] %></a></li>
+  </ul>
+<% end%>

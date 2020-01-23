@@ -1,11 +1,18 @@
+<h1>Create a brand new recipe</h1>
+
 <form method="POST" action="/recipes">
-  Recipe Name:<br>
+  Recipe name:<br>
   <input type="text" name="name"><br><br>
   Description:<br>
-  <input type="text" name="description"><br><br>
-  Preparation Time:<br>
-  <input type="text" name="prep_time"><br><br>
-  Difficulty (1 to 5):<br>
-  <input type="text" name="difficulty"><br><br>
+  <textarea name="description" rows="10" cols="70">Your Recipe</textarea><br><br>
+  Preparation time in minutes:<br>
+  <input type="number" name="prep_time" min="1" max="180"><br><br>
+  Difficulty:<br>
+  <input type="radio" name="difficulty" value="easy">
+  <label for="dewey">Easy</label><br>
+  <input type="radio" name="difficulty" value="average">
+  <label for="dewey">Average</label><br>
+  <input type="radio" name="difficulty" value="hard">
+  <label for="dewey">Hard</label><br>
   <input type="submit" value="Submit">
 </form>

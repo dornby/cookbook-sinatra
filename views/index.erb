@@ -1,7 +1,34 @@
-<ul>
-  <% @recipes.each do |recipe| %>
-    <li><%= recipe.name %> • <a href="/recipe/<%= recipe.id %>">Delete</a></li>
-  <% end %>
-</ul>
+<% require 'pry' %>
 
-<a href="/new">Create a new recipe</a>
+<div class="header">
+  <h1>Your cookbook</h1>
+</div>
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-auto">
+      <a href="/new" class="button">Create a new recipe</a><br><br>
+    </div>
+    <div class="col-md-auto">
+      <a href="/delete/all" class="button deletion">Delete all recipes</a><br><br>
+    </div>
+    <div class="col-md-auto">
+      <a href="/import" class="button" id="allrecipes-button">Import AllRecipes recipe</a><br><br>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <% @recipes.each_with_index do |recipe, index| %>
+      <div class="col-4">
+        <div class="card" style="width: 1;">
+          <div class="card-body">
+            <h4 class="card-title"><%= recipe.name %></h4></h5>
+            <p class="card-text"><% recipe.description %></p>
+            <a href="/recipe/<%= recipe.id %>" class="button" id="card-button">View</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

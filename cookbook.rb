@@ -13,7 +13,7 @@ class Cookbook
     @recipes = []
 
     CSV.foreach(csv_file_path) do |recipe|
-      @recipes << Recipe.new(name: recipe[0], description: recipe[1], prep_time: recipe[2], difficulty: recipe[3], is_done: recipe[4], id: @recipes.size + 1)
+      @recipes << Recipe.new(name: recipe[0], description: recipe[1], prep_time: recipe[2], difficulty: recipe[3], is_done: recipe[4], id: recipe[5])
     end
   end
 
@@ -22,6 +22,8 @@ class Cookbook
   end
 
   def add_recipe(recipe)
+    recipe.id = largest_id.to_i + 1
+    recipe.is_done = false
     @recipes << recipe
   end
 
@@ -42,7 +44,7 @@ class Cookbook
 
     CSV.open(@csv_file_path, 'wb', csv_options) do |csv|
       @recipes.each do |to_store_recipe|
-        csv << [to_store_recipe.name, to_store_recipe.description, to_store_recipe.prep_time, to_store_recipe.difficulty, to_store_recipe.id]
+        csv << [to_store_recipe.name, to_store_recipe.description, to_store_recipe.prep_time, to_store_recipe.difficulty, false, to_store_recipe.id]
       end
     end
   end
@@ -56,6 +58,6 @@ class Cookbook
   end
 
   def id_index(id)
-    @recipes.index { |recipe| recipe.id == id }
+    @recipes.index { |recipe| recipe.id.to_i == id }
   end
 end
